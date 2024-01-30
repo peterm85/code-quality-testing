@@ -7,19 +7,21 @@ import com.example.code.domain.exception.NotFoundException;
 import com.example.code.domain.exception.NotFoundException.Errors;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
-import com.example.code.repository.mapper.UserConverter;
+import com.example.code.repository.mapper.UserEntityMapper;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
   @Autowired private UserJpaRepository userJpaRepository;
 
+  @Autowired private UserEntityMapper userEntityMapper;
+
   @Override
   public User createUser(final User user) {
 
-    final UserEntity userEntity = userJpaRepository.save(UserConverter.fromDto(user));
+    final UserEntity userEntity = userJpaRepository.save(userEntityMapper.toEntity(user));
 
-    return UserConverter.fromEntity(userEntity);
+    return userEntityMapper.toUser(userEntity);
   }
 
   @Override
@@ -27,13 +29,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     return userJpaRepository
         .findById(userId)
-        .map(u -> UserConverter.fromEntity(u))
+        .map(u -> userEntityMapper.toUser(u))
         .orElseThrow(() -> new NotFoundException("getUserById", Errors.USER_NOT_FOUND, null));
   }
 
   @Override
   public void modifyUser(final User user) {
 
-    userJpaRepository.save(UserConverter.fromDto(user));
+    userJpaRepository.save(userEntityMapper.toEntity(user));
   }
 }

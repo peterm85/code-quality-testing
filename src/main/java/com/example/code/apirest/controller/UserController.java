@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
-import com.example.code.apirest.mapper.UserConverter;
+import com.example.code.apirest.mapper.UserMapper;
 import com.example.code.application.usecase.UserCreationUseCase;
 import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
@@ -32,22 +32,24 @@ public class UserController {
   @Autowired private UserModificationUseCase userModificationUseCase;
   @Autowired private UserRetrieveUseCase userRetrieveUseCase;
 
+  @Autowired private UserMapper userMapper;
+
   @PostMapping
   public ResponseEntity<UserResponse> createUser(@Valid @RequestBody final UserRequest user) {
     log.info("Processing POST request with body {} ", user);
 
-    final User newUser = userCreationUseCase.createUser(UserConverter.fromRequest(user));
+    final User newUser = userCreationUseCase.createUser(userMapper.toUser(user));
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(UserConverter.fromDto(newUser));
+    return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toResponse(newUser));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<UserResponse> getUserById(@PathVariable final Integer id) {
     log.info("Processing GET request by id {} ", id);
 
-    final User newUser = userRetrieveUseCase.getUserById(id);
+    final User user = userRetrieveUseCase.getUserById(id);
 
-    return ResponseEntity.status(HttpStatus.OK).body(UserConverter.fromDto(newUser));
+    return ResponseEntity.status(HttpStatus.OK).body(userMapper.toResponse(user));
   }
 
   @PutMapping("/{id}")
@@ -55,7 +57,7 @@ public class UserController {
       @PathVariable final Integer id, @Valid @RequestBody final UserRequest user) {
     log.info("Processing PUT request with body {} ", user);
 
-    userModificationUseCase.modifyUser(id, UserConverter.fromRequest(user));
+    userModificationUseCase.modifyUser(id, userMapper.toUser(user));
 
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
