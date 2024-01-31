@@ -4,13 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
-import com.example.code.utils.BaseTest;
+import com.example.code.utils.JsonTestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = UserEntityMapperImpl.class)
-public class UserEntityMapperTest extends BaseTest {
+class UserEntityMapperTest extends JsonTestUtils {
 
   private static final String PATH = "repository/mapper/";
 

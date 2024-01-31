@@ -22,6 +22,7 @@
         <pitest-plugin.version>1.15.3</pitest-plugin.version>
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
         <googleformatter-maven-plugin.version>1.7.3</googleformatter-maven-plugin.version>
+        <sonar-maven-plugin.version>3.4.0.905</sonar-maven-plugin.version>
     </properties>
 
     <parent>
@@ -181,14 +182,6 @@
                         <version>${pitest-junit5-plugin.version}</version>
                     </dependency>
                 </dependencies>
-                <!--<executions>
-                	<execution>
-                		<phase>test</phase>
-                		<goals>
-                			<goal>mutationCoverage</goal>
-                		</goals>
-                	</execution>
-                </executions>-->
                 <configuration>
                     <!--The number of threads to use when mutation testing. By default a single thread will be used. -->
                     <threads>4</threads>
@@ -234,7 +227,21 @@
 			        </execution>
 			    </executions>
 			</plugin>
-                    
+            
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+                <executions>
+                   <execution>
+                        <id>sonar-check</id>
+                        <goals>
+                            <goal>sonar</goal>
+                        </goals>
+                   </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    
 </project>

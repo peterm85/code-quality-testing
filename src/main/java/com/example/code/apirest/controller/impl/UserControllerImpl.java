@@ -9,9 +9,7 @@ import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
 import com.example.code.domain.model.User;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-@AllArgsConstructor
 public class UserControllerImpl implements UserController {
 
-  @Autowired private UserCreationUseCase userCreationUseCase;
-  @Autowired private UserModificationUseCase userModificationUseCase;
-  @Autowired private UserRetrieveUseCase userRetrieveUseCase;
+  private UserCreationUseCase userCreationUseCase;
+  private UserModificationUseCase userModificationUseCase;
+  private UserRetrieveUseCase userRetrieveUseCase;
+  private UserMapper userMapper;
 
-  @Autowired private UserMapper userMapper;
+  public UserControllerImpl(
+      final UserCreationUseCase userCreationUseCase,
+      final UserModificationUseCase userModificationUseCase,
+      final UserRetrieveUseCase userRetrieveUseCase,
+      final UserMapper userMapper) {
+    this.userCreationUseCase = userCreationUseCase;
+    this.userModificationUseCase = userModificationUseCase;
+    this.userRetrieveUseCase = userRetrieveUseCase;
+    this.userMapper = userMapper;
+  }
 
   @Override
   @PostMapping

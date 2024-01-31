@@ -13,7 +13,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 @SuppressWarnings("deprecation")
-public class BaseTest {
+public class JsonTestUtils {
   protected static final String BASE_PATH = "src/test/resources/%s/";
   private static final String INPUT_PATH = "input/";
   private static final String EXPECTED_PATH = "expected/";

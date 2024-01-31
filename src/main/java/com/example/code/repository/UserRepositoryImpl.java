@@ -4,17 +4,20 @@ import com.example.code.domain.exception.UserNotFoundException;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.repository.mapper.UserEntityMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-  @Autowired private UserJpaRepository userJpaRepository;
+  private UserJpaRepository userJpaRepository;
 
-  @Autowired private UserEntityMapper userEntityMapper;
+  private UserEntityMapper userEntityMapper;
+
+  public UserRepositoryImpl(
+      final UserJpaRepository userJpaRepository, final UserEntityMapper userEntityMapper) {
+    this.userJpaRepository = userJpaRepository;
+    this.userEntityMapper = userEntityMapper;
+  }
 
   @Override
   public User createUser(final User user) {
