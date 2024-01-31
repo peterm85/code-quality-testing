@@ -1,14 +1,12 @@
 package com.example.code.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.example.code.domain.exception.UserNotFoundException;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.repository.mapper.UserEntityMapper;
-
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 @Repository
 @AllArgsConstructor

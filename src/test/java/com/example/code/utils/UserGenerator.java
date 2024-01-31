@@ -1,11 +1,10 @@
 package com.example.code.utils;
 
-import org.instancio.Instancio;
-
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
+import org.instancio.Instancio;
 
 public class UserGenerator {
 

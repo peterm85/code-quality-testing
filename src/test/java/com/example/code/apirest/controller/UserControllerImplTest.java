@@ -1,20 +1,19 @@
 package com.example.code.apirest.controller;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import com.example.code.apirest.dto.UserResponse;
-import com.example.code.application.usecase.UserModificationUseCase;
-import com.example.code.domain.model.User;
-
 import static com.example.code.utils.UserGenerator.createUserRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
+
+import com.example.code.apirest.dto.UserResponse;
+import com.example.code.application.usecase.UserModificationUseCase;
+import com.example.code.domain.model.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public class UserControllerImplTest {
 

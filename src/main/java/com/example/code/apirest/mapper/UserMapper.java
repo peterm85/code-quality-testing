@@ -1,10 +1,9 @@
 package com.example.code.apirest.mapper;
 
-import org.mapstruct.Mapper;
-
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
 import com.example.code.domain.model.User;
+import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserMapper {

@@ -1,9 +1,8 @@
 package com.example.code.apirest.controller;
 
-import org.springframework.http.ResponseEntity;
-
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
+import org.springframework.http.ResponseEntity;
 
 public interface UserController {
 

@@ -1,7 +1,12 @@
 package com.example.code.apirest.controller;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import static com.example.code.utils.UserGenerator.createUser;
+import static com.example.code.utils.UserGenerator.createUserResponse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.example.code.apirest.controller.impl.UserControllerImpl;
 import com.example.code.apirest.dto.UserRequest;
@@ -10,14 +15,8 @@ import com.example.code.application.usecase.UserCreationUseCase;
 import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
 import com.example.code.domain.model.User;
-
-import static com.example.code.utils.UserGenerator.createUser;
-import static com.example.code.utils.UserGenerator.createUserResponse;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 public class UserControllerTestConfig {

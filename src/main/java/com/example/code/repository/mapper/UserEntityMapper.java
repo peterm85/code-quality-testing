@@ -1,9 +1,8 @@
 package com.example.code.repository.mapper;
 
-import org.mapstruct.Mapper;
-
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
+import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserEntityMapper {

@@ -1,7 +1,6 @@
 package com.example.code.domain.model;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

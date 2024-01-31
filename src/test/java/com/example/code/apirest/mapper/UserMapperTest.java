@@ -1,14 +1,13 @@
 package com.example.code.apirest.mapper;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.domain.model.User;
 import com.example.code.utils.BaseTest;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = UserMapperImpl.class)
 class UserMapperTest extends BaseTest {

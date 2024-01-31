@@ -21,6 +21,7 @@
         <jacoco.min-coverage>0.85</jacoco.min-coverage>
         <pitest-plugin.version>1.15.3</pitest-plugin.version>
         <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
+        <googleformatter-maven-plugin.version>1.7.3</googleformatter-maven-plugin.version>
     </properties>
 
     <parent>
@@ -208,6 +209,32 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
+            
+            <plugin>
+			    <groupId>com.theoryinpractise</groupId>
+			    <artifactId>googleformatter-maven-plugin</artifactId>
+			    <version>${googleformatter-maven-plugin.version}</version>
+			    <executions>
+			        <execution>
+			            <id>reformat-sources</id>
+			            <phase>process-sources</phase>
+			            <goals>
+			                <goal>format</goal>
+			            </goals>
+			            <configuration>
+			                <includeStale>false</includeStale>
+			                <style>GOOGLE</style>
+			                <formatMain>true</formatMain>
+			                <formatTest>true</formatTest>
+			                <filterModified>false</filterModified>
+			                <skip>false</skip>
+			                <fixImports>true</fixImports>
+			                <maxLineLength>100</maxLineLength>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+                    
         </plugins>
     </build>
 </project>
