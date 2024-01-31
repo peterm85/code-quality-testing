@@ -42,13 +42,13 @@ class UserModificationUseCaseImplTest {
     final User modifiedUser = createUser();
 
     // When
-    when(userRepository.getUserById(anyInt())).thenReturn(mockedUser);
+    when(userRepository.findUserById(anyInt())).thenReturn(mockedUser);
     doNothing().when(userRepository).modifyUser(any(User.class));
 
     userModificationUseCaseImpl.modifyUser(userId, modifiedUser);
 
     // Then
-    verify(userRepository).getUserById(anyInt());
+    verify(userRepository).findUserById(anyInt());
     verify(userRepository).modifyUser(this.userCaptor.capture());
 
     final User userCaptorValue = this.userCaptor.getValue();

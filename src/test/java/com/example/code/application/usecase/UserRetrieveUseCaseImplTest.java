@@ -34,12 +34,12 @@ class UserRetrieveUseCaseImplTest {
     final User mockedUser = createUser();
 
     // When
-    when(userRepository.getUserById(anyInt())).thenReturn(mockedUser);
+    when(userRepository.findUserById(anyInt())).thenReturn(mockedUser);
 
     final User resultUser = userRetrieveUseCaseImpl.getUserById(userId);
 
     // Then
-    verify(userRepository).getUserById(anyInt());
+    verify(userRepository).findUserById(anyInt());
     assertThat(resultUser).isNotNull();
   }
 }

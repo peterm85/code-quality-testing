@@ -14,6 +14,6 @@ public class UserRetrieveUseCaseImpl implements UserRetrieveUseCase {
 
   @Override
   public User getUserById(final Integer id) {
-    return userRepository.getUserById(id);
+    return userRepository.findUserById(id);
   }
 }

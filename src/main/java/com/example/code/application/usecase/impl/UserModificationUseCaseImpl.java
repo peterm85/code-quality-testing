@@ -15,7 +15,7 @@ public class UserModificationUseCaseImpl implements UserModificationUseCase {
   @Override
   public void modifyUser(final int id, final User user) {
 
-    final User currentUser = userRepository.getUserById(id);
+    final User currentUser = userRepository.findUserById(id);
 
     currentUser.setName(user.getName());
     currentUser.setSurname(user.getSurname());

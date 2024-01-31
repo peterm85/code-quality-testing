@@ -6,7 +6,7 @@ public interface UserRepository {
 
   User createUser(User user);
 
-  User getUserById(int userId);
+  User findUserById(int userId);
 
   void modifyUser(User user);
 }

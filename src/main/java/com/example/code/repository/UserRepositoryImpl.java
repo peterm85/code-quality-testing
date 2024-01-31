@@ -9,7 +9,10 @@ import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.repository.mapper.UserEntityMapper;
 
+import lombok.AllArgsConstructor;
+
 @Repository
+@AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
   @Autowired private UserJpaRepository userJpaRepository;
@@ -25,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
-  public User getUserById(final int userId) {
+  public User findUserById(final int userId) {
 
     return userJpaRepository
         .findById(userId)

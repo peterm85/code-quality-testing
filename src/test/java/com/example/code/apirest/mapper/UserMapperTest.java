@@ -18,7 +18,7 @@ class UserMapperTest extends BaseTest {
   @Test
   void convertUserRequestToUser() {
     // Given
-    final UserRequest userRequest = readFile(PATH, "user-request.json", UserRequest.class);
+    final var userRequest = readFile(PATH, "user-request.json", UserRequest.class);
     // When
     final var user = userMapper.toUser(userRequest);
     // Then
@@ -28,7 +28,7 @@ class UserMapperTest extends BaseTest {
   @Test
   void convertUserToUserResponse() {
     // Given
-    final User user = readFile(PATH, "user.json", User.class);
+    final var user = readFile(PATH, "user.json", User.class);
     // When
     final var userResponse = userMapper.toResponse(user);
     // Then
