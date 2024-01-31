@@ -8,6 +8,8 @@ import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.utils.BaseTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest(classes = UserEntityMapperImpl.class)
 public class UserEntityMapperTest extends BaseTest {
 
@@ -33,5 +35,25 @@ public class UserEntityMapperTest extends BaseTest {
     final var userEntity = userEntityMapper.toEntity(user);
     // Then
     checkResult(userEntity, PATH, "user-entity.json");
+  }
+
+  @Test
+  void convertUserEntityToUserWhenNull() {
+    // Given
+    final UserEntity userEntity = null;
+    // When
+    final var user = userEntityMapper.toUser(userEntity);
+    // Then
+    assertThat(user).isNull();
+  }
+
+  @Test
+  void convertUserToUserEntityWhenNull() {
+    // Given
+    final User user = null;
+    // When
+    final var userEntity = userEntityMapper.toEntity(user);
+    // Then
+    assertThat(userEntity).isNull();
   }
 }

@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.example.code.domain.exception.NotFoundException;
+import com.example.code.domain.exception.UserNotFoundException;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.repository.mapper.UserEntityMapper;
@@ -68,7 +68,7 @@ class UserRepositoryImplTest {
 
     // Then
     if (throwAnException) {
-      assertThrows(NotFoundException.class, () -> this.userRepository.findUserById(userId));
+      assertThrows(UserNotFoundException.class, () -> this.userRepository.findUserById(userId));
     } else {
       final User user = this.userRepository.findUserById(userId);
 

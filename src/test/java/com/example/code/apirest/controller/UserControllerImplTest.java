@@ -7,9 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.example.code.apirest.dto.UserResponse;
+import com.example.code.application.usecase.UserModificationUseCase;
+import com.example.code.domain.model.User;
 
 import static com.example.code.utils.UserGenerator.createUserRequest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
 
 public class UserControllerImplTest {
 
@@ -66,9 +71,11 @@ public class UserControllerImplTest {
     this.runner.run(
         context -> {
           final UserController api = context.getBean(UserController.class);
+          final UserModificationUseCase useCase = context.getBean(UserModificationUseCase.class);
           final ResponseEntity<Void> response = api.modifyUser(userId, userRequest);
           assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
           assertThat(response.getBody()).isNull();
+          verify(useCase).modifyUser(anyInt(), any(User.class));
         });
   }
 }

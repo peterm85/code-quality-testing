@@ -8,6 +8,8 @@ import com.example.code.apirest.dto.UserRequest;
 import com.example.code.domain.model.User;
 import com.example.code.utils.BaseTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest(classes = UserMapperImpl.class)
 class UserMapperTest extends BaseTest {
 
@@ -33,5 +35,25 @@ class UserMapperTest extends BaseTest {
     final var userResponse = userMapper.toResponse(user);
     // Then
     checkResult(userResponse, PATH, "user-response.json");
+  }
+
+  @Test
+  void convertUserRequestToUserWhenNull() {
+    // Given
+    final UserRequest userRequest = null;
+    // When
+    final var user = userMapper.toUser(userRequest);
+    // Then
+    assertThat(user).isNull();
+  }
+
+  @Test
+  void convertUserToUserResponseWhenNull() {
+    // Given
+    final User user = null;
+    // When
+    final var userResponse = userMapper.toResponse(user);
+    // Then
+    assertThat(userResponse).isNull();
   }
 }

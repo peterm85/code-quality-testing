@@ -3,8 +3,7 @@ package com.example.code.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.code.domain.exception.NotFoundException;
-import com.example.code.domain.exception.NotFoundException.Errors;
+import com.example.code.domain.exception.UserNotFoundException;
 import com.example.code.domain.model.User;
 import com.example.code.repository.entity.UserEntity;
 import com.example.code.repository.mapper.UserEntityMapper;
@@ -33,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
     return userJpaRepository
         .findById(userId)
         .map(u -> userEntityMapper.toUser(u))
-        .orElseThrow(() -> new NotFoundException("getUserById", Errors.USER_NOT_FOUND, null));
+        .orElseThrow(() -> new UserNotFoundException(userId));
   }
 
   @Override

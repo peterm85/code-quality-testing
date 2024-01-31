@@ -16,10 +16,11 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <instancio.version>3.6.0</instancio.version>
         
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <maven-jacoco-plugin.version>0.8.7</maven-jacoco-plugin.version>
         <jacoco.min-coverage>0.85</jacoco.min-coverage>
-        <pitest-plugin.version>1.7.3</pitest-plugin.version>
-        <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
+        <pitest-plugin.version>1.15.3</pitest-plugin.version>
+        <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
     </properties>
 
     <parent>
@@ -28,6 +29,7 @@
         <version>3.2.0</version>
         <relativePath/>
     </parent>
+    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,7 +79,6 @@
 		    <version>${instancio.version}</version>
 		    <scope>test</scope>
 		</dependency>
-        
 				
     </dependencies>
     
@@ -161,10 +162,9 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*Application.class</exclude>
-                        <exclude>**/configuration/**</exclude>
-                        <exclude>**/domain/**</exclude>
-                        <exclude>**/api/model/**</exclude>
-                        <exclude>**/entity/**</exclude>
+                        <exclude>**/domain/model/**</exclude>
+                        <exclude>**/apirest/dto/**</exclude>
+                        <exclude>**/repository/entity/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -180,17 +180,21 @@
                         <version>${pitest-junit5-plugin.version}</version>
                     </dependency>
                 </dependencies>
+                <!--<executions>
+                	<execution>
+                		<phase>test</phase>
+                		<goals>
+                			<goal>mutationCoverage</goal>
+                		</goals>
+                	</execution>
+                </executions>-->
                 <configuration>
                     <!--The number of threads to use when mutation testing. By default a single thread will be used. -->
                     <threads>4</threads>
                     <timeoutFactor>3.0</timeoutFactor>
                     <timeoutConstant>60000</timeoutConstant>
                     <outputFormats>
-                        <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
-                        <!-- OPTIONAL -->
-                        <outputFormat>CSV</outputFormat>
-                        <!-- OPTIONAL -->
                     </outputFormats>
                     <exportLineCoverage>true</exportLineCoverage>
                     <failWhenNoMutations>false</failWhenNoMutations>
@@ -201,10 +205,6 @@
                     <targetClasses>
                         <param>com.example.*</param>
                     </targetClasses>
-                    <excludedClasses>
-                        <param>**.*DTO</param>
-                        
-                    </excludedClasses>
                     <verbose>true</verbose>
                 </configuration>
             </plugin>

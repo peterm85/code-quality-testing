@@ -5,8 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.code.domain.exception.NotFoundException;
-import com.example.code.domain.exception.NotFoundException.Errors;
+import com.example.code.domain.exception.UserNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -20,10 +19,12 @@ public class UserRestExceptionHandlerTest {
   @Test
   void handleUserNotFoundException() {
     // Given
-    final var exception = new NotFoundException("getUserById", Errors.USER_NOT_FOUND, null);
+    final int userId = 1;
+    final var exception = new UserNotFoundException(userId);
 
     // When
-    final var response = this.userRestExceptionHandler.handleNotFoundExceptions(exception, null);
+    final var response =
+        this.userRestExceptionHandler.handleUserNotFoundExceptions(exception, null);
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(NOT_FOUND);
