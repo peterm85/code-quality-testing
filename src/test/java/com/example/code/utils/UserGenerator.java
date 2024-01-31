@@ -1,4 +1,4 @@
-package com.example.code.apirest;
+package com.example.code.utils;
 
 import org.instancio.Instancio;
 

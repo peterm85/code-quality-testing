@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.code.apirest.dto.UserResponse;
 
-import static com.example.code.apirest.UserGenerator.createUserRequest;
+import static com.example.code.utils.UserGenerator.createUserRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserControllerImplTest {

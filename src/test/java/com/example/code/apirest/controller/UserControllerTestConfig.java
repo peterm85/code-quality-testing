@@ -11,8 +11,8 @@ import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
 import com.example.code.domain.model.User;
 
-import static com.example.code.apirest.UserGenerator.createUser;
-import static com.example.code.apirest.UserGenerator.createUserResponse;
+import static com.example.code.utils.UserGenerator.createUser;
+import static com.example.code.utils.UserGenerator.createUserResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
