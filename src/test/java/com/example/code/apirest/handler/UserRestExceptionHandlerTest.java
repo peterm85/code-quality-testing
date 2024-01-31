@@ -9,6 +9,7 @@ import com.example.code.domain.exception.NotFoundException;
 import com.example.code.domain.exception.NotFoundException.Errors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +27,19 @@ public class UserRestExceptionHandlerTest {
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(NOT_FOUND);
+    assertThat(response.getBody()).isNull();
+  }
+
+  @Test
+  void handleAllExceptions() {
+    // Given
+    final var exception = new NullPointerException();
+
+    // When
+    final var response = this.userRestExceptionHandler.handleAllExceptions(exception, null);
+
+    // Then
+    assertThat(response.getStatusCode()).isEqualTo(INTERNAL_SERVER_ERROR);
     assertThat(response.getBody()).isNull();
   }
 }
