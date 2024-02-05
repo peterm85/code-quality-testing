@@ -3,7 +3,7 @@
 
 ## ¿Qué vamos a ver?
 
-A lo largo de mi carrera profesional trabajar en diferentes proyectos me han proporcionado una visión clara de qué es básico y qué no para que un proyecto y un equipo funcione tecnicamente bien. 
+A lo largo de mi carrera profesional trabajar en diferentes proyectos me ha proporcionado una visión clara diferentes conceptos básicos para que un proyecto y un equipo funcione tecnicamente bien. 
 
 A continuación y a modo de recopilatorio iré desgranando punto a punto desde una perspectiva de desarrollo:
 
@@ -13,7 +13,8 @@ A continuación y a modo de recopilatorio iré desgranando punto a punto desde u
 - [Nomenclaturas](#code-naming)
 - [Formato del código](#code-format)
 - [Test unitarios](#unit-tests)
-    * Json Unit test vs Instancio
+    * Instancio
+    * Json Unit test
     * Jacoco pluging % coverage
     * Test de mutación
     * Test threadSafe
@@ -39,7 +40,7 @@ Una estrategia con la que he visto grandes resultados es la seguida por la arqui
 
 ## <a name="code-naming">Nomenclaturas</a> [&#8593;](#index)
 
-Otra de las premisas se trata de cómo nombrar clases, variables, etc. Para ello puede ayudar seguir estándares como por ejemplo el de [Oracle](#https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html).
+Otra de las premisas se trata de cómo nombrar clases, variables, etc. Para ello puede ayudar seguir estándares como por ejemplo el de [Oracle](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html).
 
 ## <a name="code-format">Formato del código</a> [&#8593;](#index)
 
@@ -57,28 +58,32 @@ Para ello, tener un framework que agilice la generación de tests unitarios es m
 
 ### Instancio
 
-Se trata de una librería que genera aleatoriamente datos de nuestros POJOs/DTOs de cara a realizar tests cuando no nos importa mucho el contenido de los mismos.
+Se trata de una librería que genera de forma rápida y aleatoria datos para nuestros POJOs/DTOs cuando no es relevante el contenido de los mismos.
 
 ### Json unit test
 
-Este otro caso es un método que se apoya en librerías de Json para generar objetos. Es muy útil cuando tenemos que tener controlados los datos que vamos a utilizar, reduce drásticamente el código necesario para preparar el tests y permite realizar comparaciones sobre un objeto esperado.
+Este otro caso es un método que se apoya en librerías de Json para generar objetos de prueba. Es muy útil cuando tenemos que tener controlados los datos que vamos a utilizar, reduce drásticamente el código necesario para preparar el test y permite realizar comparaciones estrictas sobre un objeto esperado.
+
+<img src="doc/jsonTest.png" alt="Json test"/>
 
 ### Jacoco pluging % coverage
 
-Este plugin de maven nos ayuda a no olvidarnos de realizar tests unitarios. Una vez lanzado el comando `mvn install` detecta el nivel de cobertura sobre nuevo código y lanza una alerta si no llegamos al mínimo que hemos estipulado.
+Este plugin de maven nos ayuda a no olvidarnos de realizar tests unitarios. Tras finalizar el comando `mvn install`, detecta el nivel de cobertura sobre el nuevo código y lanza una alerta si no se llega al mínimo que hemos estipulado.
 
 <img src="doc/jacoco_plugin_before.png" alt="Jacoco before"/>
 
 ### Test de mutación
 
-Una de las debilidades más importantes de un test unitario es que al cambiar algo en el código, el test siga pasando sin más. Algo debería avisarnos de que el comportamiento ha sido modificado, ¿no creeis?.
+Una de las debilidades más importantes de un test unitario es que al modificar el código, el test siga pasando sin más. Algo debería avisarnos de que el comportamiento ha cambiado, ¿no creeis?.
 Por ello existen herramientas como los test de mutación que nos ayudan a desarrollar tests más robustos.
 
-`mvn -DwithHistory test-compile org.pitest:pitest-maven:mutationCoverage`
+```
+mvn -DwithHistory test-compile org.pitest:pitest-maven:mutationCoverage
+```
 
-En el informe que se genera al lanzar el pluging de maven se indica cómo de buenos son nuestros tests, su robustez y, en caso de que haga falta, qué nos faltaría chequear.
+En el informe que se genera al lanzar el pluging de maven se indica cómo de buenos son nuestros tests, su robustez y, en caso de que haga falta, qué nos faltaría comprobar.
 
-`/target/pit-reports/index.html`
+> */target/pit-reports/index.html*
 
 <img src="doc/pitest_before.png" alt="Jacoco before"/>
 
@@ -96,19 +101,23 @@ PENDIENTE
 
 ## <a name="static-analysis">Análisis estático</a> [&#8593;](#index)
 
-Una herramienta muy útil a la hora de desarrollar es un analizador estático. Éste sirve de dashboard para dar visibilidad sobre métricas de smells, vulnerabilidades, cobertura, código duplicado, etc. En caso de que el CI/CD de tu proyecto no lo tenga aún integrado es posible tenerlo con reglas default sobre un contenedor docker.
+Los analizadores estáticos son una herramienta muy útil a la hora de desarrollar. Éstos sirven de dashboard para visibilizar métricas sobre smells, vulnerabilidades, cobertura, código duplicado, etc. En caso de que el CI/CD de tu proyecto no tenga ninguno integrado es posible desplegarlo con unas sencillas reglas por defecto sobre un contenedor docker. En este caso utilizaremos el conocido SonarQube.
 
 Al lanzar el siguiente comando maven enviaremos el reporte al servidor.
 
-`mvn sonar:sonar -Dsonar.user=admin -Dsonar.password=admin`
+```
+mvn sonar:sonar -Dsonar.user=admin -Dsonar.password=admin
+```
 
-http://localhost:9000 -> U: admin - P: admin
+> *http://localhost:9000 -> U: admin - P: admin*
 
 <img src="doc/sonar_before.png" alt="SonarQube before"/>
 
 ## <a name="dependency-security">Seguridad en las dependencias</a> [&#8593;](#index)
 
+PENDIENTE
+
 ## <a name="team">Equipo, equipo y equipo</a> [&#8593;](#index)
 
 Ninguno de estos puntos anteriores tiene sentido si cada miembro del equipo trabaja de manera independiente. Llegar a acuerdos para trabajar uniformemente es crítico para un proyecto. De lo contrario podremos encontrarnos con Frankensteins en los que cada fichero está hecho de una forma diferente. Esto además ralentiza los desarrollos, la búsqueda de errores y su mantenimiento.
-Por lo tanto, una vez se componga el equipo o cuando un nuevo miembro se integre al mismo deberá dejarse claro cuales son las normas internas a seguir. Si es necesario discutir alguna que resulte controvertida siempre es mejor que encontrarnos sorpresas o futuras discursiones.
+Por lo tanto, una vez se componga un equipo o cuando un nuevo miembro se integre al mismo deberá dejarse claro cuales son las normas internas a seguir. Si es necesario es mejor discutir alguna que resulte controvertida antes que encontrarnos sorpresas o futuros roces entre compañeros.
