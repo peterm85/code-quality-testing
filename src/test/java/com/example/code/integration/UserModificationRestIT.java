@@ -2,6 +2,7 @@ package com.example.code.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_CLASS;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
 
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
@@ -15,17 +16,20 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
+@Sql(value = "/scripts/import_users.sql", executionPhase = BEFORE_TEST_CLASS)
 @Sql(value = "/scripts/cleanup_data.sql", executionPhase = AFTER_TEST_CLASS)
-public class UserCreationRestIT extends AbstractRestIT {
+public class UserModificationRestIT extends AbstractRestIT {
 
   @Test
   @DisplayName(
       "GIVEN a valid user request "
-          + "WHEN create user is called "
-          + "THEN a response with 201 is returned with user data created")
-  void createUserTest() throws URISyntaxException {
+          + "WHEN modify user is called "
+          + "THEN a response with 204 is returned with user data created")
+  void modifyUserTest() throws URISyntaxException {
     // Given
     final String url = this.getServiceUrl();
+
+    final int userId = 1;
     final UserRequest request =
         UserRequest.builder()
             .name("John")
@@ -36,14 +40,14 @@ public class UserCreationRestIT extends AbstractRestIT {
             .build();
 
     // When
-    final var requestEntity = RequestEntity.post(new URI(url)).body(request);
+    final var requestEntity = RequestEntity.put(new URI(url)).body(request);
 
     final ResponseEntity<UserResponse> response =
-        this.testRestTemplate.exchange("/user", HttpMethod.POST, requestEntity, UserResponse.class);
+        this.testRestTemplate.exchange(
+            "/user/{userId}", HttpMethod.PUT, requestEntity, UserResponse.class, userId);
 
     // Then
-    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-    assertThat(response.getBody()).isNotNull();
-    assertThat(response.getBody().getId()).isNotNull();
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    assertThat(response.getBody()).isNull();
   }
 }
