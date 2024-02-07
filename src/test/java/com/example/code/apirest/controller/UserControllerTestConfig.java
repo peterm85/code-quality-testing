@@ -16,13 +16,11 @@ import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
 import com.example.code.domain.model.User;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration(proxyBeanMethods = false)
 public class UserControllerTestConfig {
 
   @Bean
-  public UserController productSamplesApi(
+  public UserController userApi(
       final UserCreationUseCase userCreationUseCase,
       final UserModificationUseCase userModificationUseCase,
       final UserRetrieveUseCase userRetrieveUseCase,
@@ -42,7 +40,7 @@ public class UserControllerTestConfig {
   }
 
   @Bean
-  public UserModificationUseCase userModifyUseCase() {
+  public UserModificationUseCase userModificationUseCase() {
     final UserModificationUseCase userModificationUseCase = mock(UserModificationUseCase.class);
 
     doNothing().when(userModificationUseCase).modifyUser(anyInt(), any(User.class));

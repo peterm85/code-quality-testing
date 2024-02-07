@@ -14,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
 
+@ContextConfiguration(classes = UserControllerTestConfig.class)
 public class UserControllerImplTest {
 
   private ApplicationContextRunner runner;
