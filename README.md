@@ -12,24 +12,24 @@ A continuación y a modo de recopilatorio iré desgranando punto a punto desde u
 - [Organización del código](#code-organization)
 - [Nomenclaturas](#code-naming)
 - [Formato del código](#code-format)
-- [Test unitarios](#unit-tests)
-    * Instancio
-    * Json Unit test
-    * Jacoco pluging % coverage
-    * Test de mutación
-    * Test threadSafe
-- [Test integración](#integration-tests)
-    * Dependencias Embebido
-    * Test-container
-- [Test e2e](#e2e-tests)
-    * Postman
+- [Test](#tests)
+    * [Test unitarios](#unit-tests)
+      + Instancio
+      + Json Unit test
+      + Jacoco pluging % coverage
+      + Test de mutación
+      + Test threadSafe
+    * [Test integración](#integration-tests)
+      + Dependencias embebidas
+      + Test-container
+    * [Test e2e](#e2e-tests)
+      + Postman
 - [Análisis estático](#static-analysis)
 - [Seguridad en las dependencias](#dependency-security)
 - [Equipo, equipo y equipo](#team)
 
 ### Requisitos
 - Hardware: Intel Core i7, 16Gb RAM
-- Docker v19.03.5?
 - Spring Boot 3
 - SonarQube
 
@@ -46,7 +46,7 @@ Otra de las premisas se trata de cómo nombrar clases, variables, etc. Para ello
 
 Aunque no es algo fundamental, resulta de gran ayuda mantener un mismo formato en todo el código redactado (espaciado, máximo de caracteres por linea, ordenación de imports, etc.). Para ello existen diferentes formas de llevarlo a cabo: individualmente mediante configuración de cada IDE (aunque es posible que alinear IDEs de diferente tipo resulte complicado) o mediante algún plugin de maven (que resulte genérico para todos). En este proyecto se ha utilizado el plugin `googleformatter-maven-plugin` basado en un estandar de Google que permite ajustar estos aspectos una vez se lanza `mvn install`, pero sin cambiar nada del código productivo.
 
-## <a name="unit-tests">Test unitarios</a> [&#8593;](#index)
+## <a name="tests">Test</a> [&#8593;](#index)
 
 <img src="doc/tests.jpg" alt="Tests everywhere"/>
 
@@ -54,25 +54,27 @@ No hace falta decir que algo fundamental en un proyecto software es que éste se
 
 No es la primera vez que trabajo en un proyecto en el que no se tienen tests automáticos o estos son muy escasos. El resultado es desperdiciar infinidad de horas probando manualmente y de forma recurrente una funcionalidad que se desarrolló hace meses cada vez que se va a subir un cambio a producción o, peor que eso, descubrir que un error que ya corregiste vuelve a reproducirse. Literalmente he visto caer proyectos enteros por esta razón. Las prisas por subir nuevas funcionalidades y la presión de algunos stakeholders iluminados que no le dan importancia a este tema provocan que al final no se realicen tests, sean pobres o de mala calidad. Sin embargo, es nuestra responsabilidad como desarrolladores (y no digo que sea fácil) pelear para hacer las cosas bien. Y esto debería cumplirse independientemente que tengamos o no disponible compañeros especializados de QA. La entrega de un código no debería ser dependiente a otros. Los desarrolladores debemos estar seguros que el código que entregamos funciona correctamente.
 
-Para ello, tener un framework que agilice la generación de tests unitarios es muy útil para mantener esta dinámica. Además de tecnologías conocidas como JUnit y Mockito voy a mencionar dos sistemas de generar datos de prueba que me han beneficiado mucho:
+### <a name="unit-tests">Test unitarios</a> [&#8593;](#index)
 
-### Instancio
+Tener un framework que agilice la generación de tests unitarios es muy útil para mantener esta dinámica. Además de tecnologías conocidas como JUnit y Mockito voy a mencionar dos sistemas de generar datos de prueba que me han beneficiado mucho en el pasado:
+
+#### Instancio
 
 Se trata de una librería que genera de forma rápida y aleatoria datos para nuestros POJOs/DTOs cuando no es relevante el contenido de los mismos.
 
-### Json unit test
+#### Json unit test
 
 Este otro caso es un método que se apoya en librerías de Json para generar objetos de prueba. Es muy útil cuando tenemos que tener controlados los datos que vamos a utilizar, reduce drásticamente el código necesario para preparar el test y permite realizar comparaciones estrictas sobre un objeto esperado.
 
 <img src="doc/jsonTest.png" alt="Json test"/>
 
-### Jacoco pluging % coverage
+#### Jacoco pluging % coverage
 
 Este plugin de maven nos ayuda a no olvidarnos de realizar tests unitarios. Tras finalizar el comando `mvn install`, detecta el nivel de cobertura sobre el nuevo código y lanza una alerta si no se llega al mínimo que hemos estipulado.
 
 <img src="doc/jacoco_plugin_before.png" alt="Jacoco before"/>
 
-### Test de mutación
+#### Test de mutación
 
 Una de las debilidades más importantes de un test unitario es que al modificar el código, el test siga pasando sin más. Algo debería avisarnos de que el comportamiento ha cambiado, ¿no creeis?.
 Por ello existen herramientas como los test de mutación que nos ayudan a desarrollar tests más robustos.
@@ -87,21 +89,35 @@ En el informe que se genera al lanzar el pluging de maven se indica cómo de bue
 
 <img src="doc/pitest_before.png" alt="Jacoco before"/>
 
-### Test threadSafe
+#### Test threadSafe
 
 PENDIENTE
 
-## <a name="integration-tests">Test de integración</a> [&#8593;](#index)
+### <a name="integration-tests">Test de integración</a> [&#8593;](#index)
 
-### Dependencias Embebido
+Aunque parezca que con unos buenos tests unitarios tenemos nuestra aplicación asegurada, nada más lejos de la realidad. Que cada pieza por separado funcione bien no garantiza que al unirlas el resultado sea el mismo.
 
-### Test-container
+<img src="doc/testing-unit-integration.gif" alt="Integration failed"/>
 
-## <a name="e2e-tests">Test e2e</a> [&#8593;](#index)
+#### Dependencias embebidas
+
+Uno de los primeros escenarios a implantar es la incorporación de dependencias embebidas a nuestros test de integración. Bases de datos en memoria o brokers de mensajes embebidos pueden ayudarnos a comprobar que el comportamiento de nuestro sistema al completo es correcto.
+
+#### Test-container
+
+Un escenario más avanzado y óptimo sería utilizar la misma base de datos y el mismo brocker de mensaje que utilizaremos en la realidad. Para ello es posible implementar test de integración en los que se desplieguen contenedores durante las pruebas y se apaguen cuando éstas terminen. Son los llamados test containers. El único requisito es tener correctamente configurado un gestor de contenedores como puede ser Docker.
+
+### <a name="e2e-tests">Test e2e</a> [&#8593;](#index)
+
+Aún teniendo un equipo de calidad que posteriormente compruebe los desarrollos, siempre es recomendable unas pruebas globales para estar seguro de que no se nos olvida nada. Para ello herramientas como Postman puede ser de gran ayuda para chequear un 'journey' en el que intervengan diferentes pasos.
+
+<img src="doc/postmanTS.png" alt="Postman test suite"/>
+
+<img src="doc/postmanSummary.png" alt="Postman test suite summary"/>
 
 ## <a name="static-analysis">Análisis estático</a> [&#8593;](#index)
 
-Los analizadores estáticos son una herramienta muy útil a la hora de desarrollar. Éstos sirven de dashboard para visibilizar métricas sobre smells, vulnerabilidades, cobertura, código duplicado, etc. En caso de que el CI/CD de tu proyecto no tenga ninguno integrado es posible desplegarlo con unas sencillas reglas por defecto sobre un contenedor docker. En este caso utilizaremos el conocido SonarQube.
+Los analizadores estáticos son una herramienta muy útil a la hora de mantener un código limpio de calidad. Éstos sirven de dashboard para visibilizar métricas sobre smells, vulnerabilidades, cobertura, código duplicado, etc. En caso de que el CI/CD de tu proyecto no tenga ninguno integrado es posible desplegarlo con unas sencillas reglas por defecto sobre un contenedor docker. En este caso utilizaremos el conocido SonarQube.
 
 Al lanzar el siguiente comando maven enviaremos el reporte al servidor.
 
