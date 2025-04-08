@@ -34,6 +34,6 @@ jobs:
 
       - name: Build and Run Unit Tests
         run: |
-          set -o pipefail
           export MAVEN_OPTS="-Djansi.force=true"
-          mvn -B clean verify | tee /dev/stdout
+          mvn -B clean verify -X | tee mvn-output.log
+          cat mvn-output.log
