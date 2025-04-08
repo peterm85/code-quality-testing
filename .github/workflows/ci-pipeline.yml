@@ -33,4 +33,7 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Build and Run Unit Tests
-        run: mvn -B clean verify | tee mvn-output.log
+        run: |
+          set -o pipefail
+          export MAVEN_OPTS="-Djansi.force=true"
+          mvn -B clean verify | tee /dev/stdout
