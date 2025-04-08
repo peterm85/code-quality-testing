@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: .
@@ -8,8 +6,6 @@ services:
       - "8080:8080"
     networks:
       - app-network
-    depends_on:
-      - db  # Dependencia de la base de datos
     restart: always
 
 networks:
