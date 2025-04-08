@@ -32,6 +32,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Build and Run Unit Tests
+      - name: Build and run tests
         run: |
-          mvn -B clean verify
+          export MAVEN_OPTS="-Djansi.force=true"
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=code-quality-testing \
+            -Dsonar.organization=peterm85 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.exclusions=**/*Application.java
