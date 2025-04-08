@@ -33,8 +33,4 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Build and Run Unit Tests
-        run: mvn clean verify
-
-      - name: Show summary of test results
-        run: |
-          echo "## ✅ Build and Unit Tests Passed" >> $GITHUB_STEP_SUMMARY
+        run: mvn -B clean verify | tee mvn-output.log
