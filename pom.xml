@@ -128,9 +128,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>${skipUTs}</skipTests>
-                    <excludes>
-                        <exclude>**/*IT.java</exclude>
-                    </excludes>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
 
@@ -141,12 +141,6 @@
 		          <includes>
 		            <include>**/*IT.java</include>
 		          </includes>
-		          <environmentVariables>
-		            <TESTCONTAINERS_RYUK_DISABLED>true</TESTCONTAINERS_RYUK_DISABLED>
-		          </environmentVariables>
-		          <excludes>
-		            <exclude>**/*Test.java</exclude>
-		          </excludes>
 		        </configuration>
 		    </plugin>
 
@@ -162,7 +156,7 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>prepare-package</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -175,7 +169,7 @@
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>PACKAGE</element>
+                                    <element>BUNDLE</element>
                                     <limits>
                                         <limit>
                                             <counter>LINE</counter>
@@ -188,14 +182,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*Application.class</exclude>
-                        <exclude>**/domain/model/**</exclude>
-                        <exclude>**/apirest/dto/**</exclude>
-                        <exclude>**/repository/entity/**</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
 
             <plugin>

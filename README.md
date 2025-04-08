@@ -18,7 +18,6 @@ A continuación y a modo de recopilatorio iré desgranandolos punto a punto y co
       + Json Unit test
       + Jacoco pluging % coverage
       + Test de mutación
-      + Test threadSafe
     * [Tests integración](#integration-tests)
       + Dependencias embebidas
       + Test-container
