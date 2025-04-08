@@ -1,5 +1,5 @@
-# Usa una imagen base con JDK
-FROM maven:3.8-openjdk-11 AS build
+# Etapa de build con Maven y JDK 17
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -10,8 +10,8 @@ COPY . /app
 # Ejecuta Maven para compilar y empaquetar la aplicación
 RUN mvn clean install -DskipTests
 
-# Usa una imagen más ligera para la ejecución
-FROM openjdk:11-jre-slim
+# Imagen final con JDK 17 slim
+FROM eclipse-temurin:17-jre
 
 # Establece el directorio de trabajo
 WORKDIR /app
