@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: code-quality-testing
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - db  # Dependencia de la base de datos
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
