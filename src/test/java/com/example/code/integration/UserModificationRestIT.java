@@ -18,7 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @Sql(value = "/scripts/import_users.sql", executionPhase = BEFORE_TEST_CLASS)
 @Sql(value = "/scripts/cleanup_data.sql", executionPhase = AFTER_TEST_CLASS)
-public class UserModificationRestIT extends AbstractRestIT {
+class UserModificationRestIT extends AbstractRestIT {
 
   @Test
   @DisplayName(

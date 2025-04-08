@@ -15,14 +15,14 @@ import org.springframework.test.context.jdbc.Sql;
 
 @Sql(value = "/scripts/import_users.sql", executionPhase = BEFORE_TEST_CLASS)
 @Sql(value = "/scripts/cleanup_data.sql", executionPhase = AFTER_TEST_CLASS)
-public class UserRetrieveRestIT extends AbstractRestIT {
+class UserRetrieveRestIT extends AbstractRestIT {
 
   @Test
   @DisplayName(
       "GIVEN a valid userId "
           + "WHEN get user by id is called "
           + "THEN a response with 200 is returned with user data")
-  void getUserByIdTest() throws URISyntaxException {
+  void getUserByIdTest() {
     // Given
     final int userId = 1;
 

@@ -22,7 +22,7 @@ class UserCreationUseCaseImplTest {
   @Mock private UserRepository userRepository;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     MockitoAnnotations.openMocks(this);
   }
 

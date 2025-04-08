@@ -29,7 +29,7 @@ class UserModificationUseCaseImplTest {
   @Captor private ArgumentCaptor<User> userCaptor;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     MockitoAnnotations.openMocks(this);
   }
 

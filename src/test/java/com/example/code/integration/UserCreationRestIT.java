@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
 @Sql(value = "/scripts/cleanup_data.sql", executionPhase = AFTER_TEST_CLASS)
-public class UserCreationRestIT extends AbstractRestIT {
+class UserCreationRestIT extends AbstractRestIT {
 
   @Test
   @DisplayName(

@@ -17,12 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration(classes = UserControllerTestConfig.class)
-public class UserControllerImplTest {
+class UserControllerImplTest {
 
   private ApplicationContextRunner runner;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     this.runner =
         new ApplicationContextRunner().withUserConfiguration(UserControllerTestConfig.class);
   }
