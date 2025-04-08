@@ -32,7 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Build and run tests
+      - name: Build and run unit tests
         run: |
           export MAVEN_OPTS="-Djansi.force=true"
           mvn -B clean verify -DskipITs=true sonar:sonar \
@@ -45,3 +45,8 @@ jobs:
             -Dsonar.junit.reportPaths=target/surefire-reports \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
             -Dsonar.exclusions=**/*Application.java
+
+      - name: Build and run integration tests
+        run: |
+          export MAVEN_OPTS="-Djansi.force=true"
+          mvn -B clean verify -DskipUTs=true
