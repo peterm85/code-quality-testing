@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . /app
 
 # Ejecuta Maven para compilar y empaquetar la aplicación
-RUN mvn clean install -DskipTests
+RUN mvn clean install -DskipTests \
+    && cp target/code-quality-testing-*.jar code-quality-testing.jar
 
 # Imagen final con JDK 17 slim
 FROM eclipse-temurin:17-jre
@@ -17,7 +18,7 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Copia el artefacto generado desde la fase de construcción
-COPY --from=build /app/target/code-quality-testing.jar /app/code-quality-testing.jar
+COPY --from=build /app/code-quality-testing.jar /app/code-quality-testing.jar
 
 # Expone el puerto en el que la aplicación corre
 EXPOSE 8080
