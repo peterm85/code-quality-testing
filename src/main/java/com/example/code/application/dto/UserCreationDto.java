@@ -1,8 +1,10 @@
 package com.example.code.application.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserCreationDto {
 
   private String name;

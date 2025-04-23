@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.example.code.utils.UserGenerator;
 import org.junit.jupiter.api.Test;
 
-public class UserTest {
+class UserTest {
 
   @Test
   void createUser() {
