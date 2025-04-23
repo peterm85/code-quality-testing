@@ -6,11 +6,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.example.code.application.dto.UserModificationDto;
 import com.example.code.utils.UserGenerator;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 class UserTest {
 
@@ -47,12 +46,11 @@ class UserTest {
 
   static Stream<UserModificationDto> providePartialModificationDtos() {
     return Stream.of(
-            UserModificationDto.builder().name("NewName").build(),
-            UserModificationDto.builder().surname("NewSurname").build(),
-            UserModificationDto.builder().address("NewAddress").build(),
-            UserModificationDto.builder().city("NewCity").build(),
-            UserModificationDto.builder().email("NewEmail").build()
-    );
+        UserModificationDto.builder().name("NewName").build(),
+        UserModificationDto.builder().surname("NewSurname").build(),
+        UserModificationDto.builder().address("NewAddress").build(),
+        UserModificationDto.builder().city("NewCity").build(),
+        UserModificationDto.builder().email("NewEmail").build());
   }
 
   @ParameterizedTest

@@ -1,9 +1,10 @@
 # Calidad, tests y gestión de deuda técnica
 
+*Read this document in [english](https://github.com/peterm85/code-quality-testing/blob/master/README_en.md)*
 
 ## ¿Qué vamos a ver?
 
-A lo largo de mi carrera profesional trabajar en diferentes proyectos me ha proporcionado una visión clara sobre diferentes conceptos básicos para que un proyecto y un equipo funcione bien tecnicamente. 
+A lo largo de mi carrera profesional trabajar en diferentes proyectos me ha proporcionado una visión clara sobre diferentes conceptos básicos para que un proyecto y un equipo funcionen bien técnicamente. 
 
 A continuación y a modo de recopilatorio iré desgranandolos punto a punto y con ejemplos desde una perspectiva de desarrollo:
 
@@ -26,15 +27,11 @@ A continuación y a modo de recopilatorio iré desgranandolos punto a punto y co
 - [Análisis estático](#static-analysis)
 - [Seguridad en las dependencias](#dependency-security)
 - [Equipo, equipo y equipo](#team)
-
-### Requisitos
-- Hardware: Intel Core i7, 16Gb RAM
-- Spring Boot 3
-- SonarQube
+- [Bibliografia](#bibliografia)
 
 ## <a name="code-organization">Organización del código</a> [&#8593;](#index)
 
-La organización del código desde mi punto de vista es algo fundamental en todo proyecto. Proporciona orden, coherencia y facilidad de búsqueda a la hora de encontrar el código de una funcionalidad concreta.
+La organización del código desde mi punto de vista es algo fundamental en todo proyecto. Proporciona orden, coherencia y facilidad de búsqueda a la hora de encontrar una funcionalidad concreta.
 Una estrategia con la que he visto grandes resultados es la seguida por la arquitectura hexagonal: separación por capas ( puertos - adaptadores - aplicación - dominio, o alguna de sus variantes). Saber en cual de estos niveles se está realizando una modificación de código es vital para que un proyecto no se descontrole al cabo del tiempo. La peor sensación como desarrollador es sentir que trabajas en el caos.
 
 ## <a name="code-naming">Nomenclaturas</a> [&#8593;](#index)
@@ -44,7 +41,7 @@ Otra de las premisas trata de cómo nombrar clases, variables, métodos, paquete
 ## <a name="code-format">Formato del código</a> [&#8593;](#index)
 
 Aunque no es algo fundamental, resulta de gran ayuda mantener un mismo formato en todo el código redactado (espaciado, máximo de caracteres por linea, ordenación de imports, etc.). Esta homogeneidad, al igual que en el punto anterior, proporciona claridad en los textos.
-Para ello existen diferentes formas de llevarlo a cabo: individualmente mediante configuración de cada IDE mediante 'settings' y 'plugins' como [google-plugin](https://plugins.jetbrains.com/plugin/8527-google-java-format), aunque es posible que alinear IDEs de diferente tipo resulte complicado) o mediante algún plugin de maven (que resulte genérico para todos). 
+Para ello existen diferentes formas de llevarlo a cabo: individualmente mediante configuración de cada IDE mediante 'settings' y 'plugins' como [google-plugin](https://plugins.jetbrains.com/plugin/8527-google-java-format). Sin embargo es posible que alinear IDEs de diferente tipo resulte complicado). Otra opción puede ser mediante algún plugin de maven (que resulte genérico para todos). 
 En este proyecto he utilizado el plugin `googleformatter-maven-plugin` basado en un estandar de Google que permite corregir estos aspectos una vez se ejecute `mvn install`, pero sin aplicar ningún cambio dentro del código productivo.
 
 ## <a name="tests">Tests</a> [&#8593;](#index)
@@ -53,7 +50,7 @@ En este proyecto he utilizado el plugin `googleformatter-maven-plugin` basado en
 
 No hace falta decir que algo fundamental en un proyecto software es que éste sea testeable. Y cuando me refiero a esto, quiero decir de forma automática.
 
-A lo largo de mi carrera he trabajado en diferentes proyectos y en algunos de ellos no se tenían tests automáticos o estos eran muy escasos. El resultado fue desperdiciar infinidad de horas probando manualmente y de forma recurrente una funcionalidad que se desarrolló hace meses cada vez que se iba a subir un cambio a producción, descubrir que un error que ya corregiste vuelve a reproducirse o incluso he visto cerrarse proyectos enteros por esta razón. Las prisas por subir nuevas funcionalidades y la presión de algunos stakeholders que no dan importancia a este tema provocan que al final no se realicen tests, sean pobres o de mala calidad. Sin embargo, es nuestra responsabilidad como desarrolladores (y no digo que sea fácil) luchar para hacer las cosas bien. Y esto debería cumplirse independientemente que tengamos o no a mano compañeros especializados de QA. La entrega de un código no debería ser dependiente a otros. Los desarrolladores debemos estar seguros que el código que entregamos funciona y funcionará de forma correcta.
+A lo largo de mi carrera he trabajado en diferentes proyectos y en algunos de ellos no se trabajaba con tests automáticos o estos eran muy escasos. El resultado fue desperdiciar infinidad de horas probando manualmente y de forma recurrente una funcionalidad que se desarrolló hace meses cada vez que se iba a subir un cambio a producción, descubrir que un error que ya corregiste vuelve a reproducirse o incluso he visto cerrarse proyectos enteros por esta razón. Las prisas por subir nuevas funcionalidades y la presión de algunos stakeholders que no dan importancia a este tema provocan que al final no se realicen tests, sean pobres o de mala calidad. Sin embargo, es nuestra responsabilidad como desarrolladores (y no digo que sea fácil) luchar para hacer las cosas bien. Y esto debería cumplirse independientemente que tengamos o no a mano compañeros especializados de QA. La entrega de un código no debería ser dependiente a otros. Los desarrolladores debemos estar seguros que el código que entregamos funciona y funcionará de forma correcta.
 
 ### <a name="unit-tests">Tests unitarios</a> [&#8593;](#index)
 
@@ -99,7 +96,7 @@ Aunque parezca que con unos buenos tests unitarios tenemos nuestra aplicación a
 
 #### Dependencias embebidas
 
-Uno de los primeros escenarios a implantar es la incorporación de dependencias embebidas a nuestros test de integración. Bases de datos en memoria o brokers de mensajes embebidos pueden ayudarnos a comprobar que el comportamiento de nuestro sistema es correcto.
+Quizás uno de los primeros pasos a implantar es la incorporación de dependencias embebidas a nuestros test de integración. Bases de datos en memoria o brokers de mensajes embebidos pueden ayudarnos a comprobar que el comportamiento de nuestro sistema es correcto.
 
 #### Test-container
 
@@ -107,7 +104,7 @@ Un escenario más avanzado y óptimo sería utilizar la misma base de datos y el
 
 ### <a name="e2e-tests">Tests e2e</a> [&#8593;](#index)
 
-Aún teniendo un equipo de calidad/QA/QE que posteriormente compruebe los desarrollos, siempre es recomendable unas pruebas globales para estar seguro de que no se nos olvida nada. Para ello herramientas como Postman puede ser de gran ayuda para chequear un 'journey' en el que intervengan diferentes pasos.
+Aún teniendo un equipo de calidad/QA/QE que posteriormente compruebe los desarrollos, siempre es recomendable unas pruebas globales para estar seguro de que no se nos olvida nada. Para ello herramientas como Karate o Postman puede ser de gran ayuda para chequear un 'journey' en el que intervengan diferentes pasos.
 
 <img src="doc/postmanTS.png" alt="Postman test suite"/>
 
@@ -116,14 +113,6 @@ Aún teniendo un equipo de calidad/QA/QE que posteriormente compruebe los desarr
 ## <a name="static-analysis">Análisis estático</a> [&#8593;](#index)
 
 Los analizadores estáticos son una herramienta muy útil a la hora de mantener un código limpio y de calidad. Éstos sirven de dashboard para visibilizar métricas sobre 'smells', vulnerabilidades, cobertura, código duplicado, etc. En caso de que el CI/CD de tu proyecto no tenga ninguno integrado es posible desplegarlo con unas sencillas reglas por defecto sobre un contenedor docker. En este caso utilizaremos el conocido SonarQube.
-
-Al lanzar el siguiente comando maven enviaremos el reporte al servidor.
-
-```
-mvn sonar:sonar -Dsonar.user=admin -Dsonar.password=admin
-```
-
-> *http://localhost:9000 -> U: admin - P: admin*
 
 <img src="doc/sonar_before.png" alt="SonarQube before"/>
 
