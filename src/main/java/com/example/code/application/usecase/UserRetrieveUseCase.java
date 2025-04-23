@@ -1,8 +1,8 @@
 package com.example.code.application.usecase;
 
-import com.example.code.domain.model.User;
+import com.example.code.application.dto.UserDto;
 
 public interface UserRetrieveUseCase {
 
-  User getUserById(final Integer id);
+  UserDto getUserById(final Integer id);
 }

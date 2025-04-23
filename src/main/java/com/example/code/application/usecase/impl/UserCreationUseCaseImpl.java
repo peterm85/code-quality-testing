@@ -1,22 +1,27 @@
 package com.example.code.application.usecase.impl;
 
+import com.example.code.application.dto.UserCreationDto;
+import com.example.code.application.dto.UserDto;
+import com.example.code.application.mapper.UserDtoMapper;
 import com.example.code.application.usecase.UserCreationUseCase;
 import com.example.code.domain.model.User;
 import com.example.code.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class UserCreationUseCaseImpl implements UserCreationUseCase {
 
   private final UserRepository userRepository;
 
-  public UserCreationUseCaseImpl(final UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+  private final UserDtoMapper userDtoMapper;
 
   @Override
-  public User createUser(final User newUser) {
+  public UserDto createUser(final UserCreationDto userCreationDto) {
 
-    return userRepository.createUser(newUser);
+    final User newUser = userRepository.createUser(User.create(userCreationDto));
+
+    return userDtoMapper.toUserDto(newUser);
   }
 }

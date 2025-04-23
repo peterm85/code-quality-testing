@@ -1,7 +1,6 @@
 package com.example.code.apirest.controller;
 
-import static com.example.code.utils.UserGenerator.createUser;
-import static com.example.code.utils.UserGenerator.createUserResponse;
+import static com.example.code.utils.UserGenerator.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
@@ -11,10 +10,12 @@ import static org.mockito.Mockito.when;
 import com.example.code.apirest.controller.impl.UserControllerImpl;
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.mapper.UserMapper;
+import com.example.code.application.dto.UserCreationDto;
+import com.example.code.application.dto.UserDto;
+import com.example.code.application.dto.UserModificationDto;
 import com.example.code.application.usecase.UserCreationUseCase;
 import com.example.code.application.usecase.UserModificationUseCase;
 import com.example.code.application.usecase.UserRetrieveUseCase;
-import com.example.code.domain.model.User;
 import org.springframework.context.annotation.Bean;
 
 public class UserControllerTestConfig {
@@ -34,7 +35,7 @@ public class UserControllerTestConfig {
   public UserCreationUseCase userCreationUseCase() {
     final UserCreationUseCase userCreationUseCase = mock(UserCreationUseCase.class);
 
-    when(userCreationUseCase.createUser(any(User.class))).thenReturn(createUser());
+    when(userCreationUseCase.createUser(any(UserCreationDto.class))).thenReturn(createUserDto());
 
     return userCreationUseCase;
   }
@@ -43,7 +44,7 @@ public class UserControllerTestConfig {
   public UserModificationUseCase userModificationUseCase() {
     final UserModificationUseCase userModificationUseCase = mock(UserModificationUseCase.class);
 
-    doNothing().when(userModificationUseCase).modifyUser(anyInt(), any(User.class));
+    doNothing().when(userModificationUseCase).modifyUser(anyInt(), any(UserModificationDto.class));
 
     return userModificationUseCase;
   }
@@ -53,7 +54,7 @@ public class UserControllerTestConfig {
 
     final UserRetrieveUseCase userRetrieveUseCase = mock(UserRetrieveUseCase.class);
 
-    when(userRetrieveUseCase.getUserById(anyInt())).thenReturn(createUser());
+    when(userRetrieveUseCase.getUserById(anyInt())).thenReturn(createUserDto());
 
     return userRetrieveUseCase;
   }
@@ -62,8 +63,10 @@ public class UserControllerTestConfig {
   public UserMapper userMapper() {
     final UserMapper userMapper = mock(UserMapper.class);
 
-    when(userMapper.toResponse(any(User.class))).thenReturn(createUserResponse());
-    when(userMapper.toUser(any(UserRequest.class))).thenReturn(createUser());
+    when(userMapper.toResponse(any(UserDto.class))).thenReturn(createUserResponse());
+    when(userMapper.toUserCreationDto(any(UserRequest.class))).thenReturn(createUserCreationDto());
+    when(userMapper.toUserModificationDto(any(UserRequest.class)))
+        .thenReturn(createUserModificationDto());
 
     return userMapper;
   }

@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserController {
 
-  public ResponseEntity<UserResponse> createUser(final UserRequest user);
+  ResponseEntity<UserResponse> createUser(final UserRequest user);
 
-  public ResponseEntity<UserResponse> getUserById(final Integer id);
+  ResponseEntity<UserResponse> getUserById(final Integer id);
 
-  public ResponseEntity<Void> modifyUser(final Integer id, final UserRequest user);
+  ResponseEntity<Void> modifyUser(final Integer id, final UserRequest user);
 }

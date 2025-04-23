@@ -3,7 +3,7 @@ package com.example.code.apirest.mapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.code.apirest.dto.UserRequest;
-import com.example.code.domain.model.User;
+import com.example.code.application.dto.UserDto;
 import com.example.code.utils.JsonTestUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +17,31 @@ class UserMapperTest extends JsonTestUtils {
   @Autowired private UserMapper userMapper;
 
   @Test
-  void convertUserRequestToUser() {
+  void convertUserRequestToUserCreationDto() {
     // Given
     final var userRequest = readFile(PATH, "user-request.json", UserRequest.class);
     // When
-    final var user = userMapper.toUser(userRequest);
+    final var userCreationDto = userMapper.toUserCreationDto(userRequest);
     // Then
-    checkResult(user, PATH, "user.json");
+    checkResult(userCreationDto, PATH, "user-dto.json");
   }
 
   @Test
-  void convertUserToUserResponse() {
+  void convertUserRequestToUserModificationDto() {
     // Given
-    final var user = readFile(PATH, "user.json", User.class);
+    final var userRequest = readFile(PATH, "user-request.json", UserRequest.class);
     // When
-    final var userResponse = userMapper.toResponse(user);
+    final var userModificationDto = userMapper.toUserModificationDto(userRequest);
+    // Then
+    checkResult(userModificationDto, PATH, "user-dto.json");
+  }
+
+  @Test
+  void convertUserDtoToUserResponse() {
+    // Given
+    final var userDto = readFile(PATH, "user.json", UserDto.class);
+    // When
+    final var userResponse = userMapper.toResponse(userDto);
     // Then
     checkResult(userResponse, PATH, "user-response.json");
   }
@@ -41,17 +51,17 @@ class UserMapperTest extends JsonTestUtils {
     // Given
     final UserRequest userRequest = null;
     // When
-    final var user = userMapper.toUser(userRequest);
+    final var userCreationDto = userMapper.toUserCreationDto(userRequest);
     // Then
-    assertThat(user).isNull();
+    assertThat(userCreationDto).isNull();
   }
 
   @Test
   void convertUserToUserResponseWhenNull() {
     // Given
-    final User user = null;
+    final UserDto userDto = null;
     // When
-    final var userResponse = userMapper.toResponse(user);
+    final var userResponse = userMapper.toResponse(userDto);
     // Then
     assertThat(userResponse).isNull();
   }

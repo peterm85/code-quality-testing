@@ -7,8 +7,8 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 
 import com.example.code.apirest.dto.UserResponse;
+import com.example.code.application.dto.UserModificationDto;
 import com.example.code.application.usecase.UserModificationUseCase;
-import com.example.code.domain.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -76,7 +76,7 @@ class UserControllerImplTest {
           final ResponseEntity<Void> response = api.modifyUser(userId, userRequest);
           assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
           assertThat(response.getBody()).isNull();
-          verify(useCase).modifyUser(anyInt(), any(User.class));
+          verify(useCase).modifyUser(anyInt(), any(UserModificationDto.class));
         });
   }
 }

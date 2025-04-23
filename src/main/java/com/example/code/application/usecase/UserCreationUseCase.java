@@ -1,8 +1,9 @@
 package com.example.code.application.usecase;
 
-import com.example.code.domain.model.User;
+import com.example.code.application.dto.UserCreationDto;
+import com.example.code.application.dto.UserDto;
 
 public interface UserCreationUseCase {
 
-  User createUser(final User newUser);
+  UserDto createUser(final UserCreationDto userCreationDto);
 }

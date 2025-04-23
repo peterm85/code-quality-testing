@@ -1,40 +1,44 @@
 package com.example.code.application.usecase;
 
-import static com.example.code.utils.UserGenerator.createUser;
+import static com.example.code.utils.UserGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.code.application.dto.UserCreationDto;
+import com.example.code.application.dto.UserDto;
+import com.example.code.application.mapper.UserDtoMapper;
 import com.example.code.application.usecase.impl.UserCreationUseCaseImpl;
 import com.example.code.domain.model.User;
 import com.example.code.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class UserCreationUseCaseImplTest {
 
   @InjectMocks private UserCreationUseCaseImpl userCreationUseCaseImpl;
 
   @Mock private UserRepository userRepository;
 
-  @BeforeEach
-  void setup() {
-    MockitoAnnotations.openMocks(this);
-  }
+  @Mock private UserDtoMapper userDtoMapper;
 
   @Test
   void createUserTest() {
     // Given
-    final User user = createUser();
+    final UserCreationDto givenUserCreationDto = createUserCreationDto();
+    final User mockedUser = createUser();
+    final UserDto mockedUserDto = createUserDto();
 
     // When
-    when(userRepository.createUser(any(User.class))).thenReturn(user);
+    when(userRepository.createUser(any(User.class))).thenReturn(mockedUser);
+    when(userDtoMapper.toUserDto(any(User.class))).thenReturn(mockedUserDto);
 
-    final User resultUser = userCreationUseCaseImpl.createUser(user);
+    final UserDto resultUser = userCreationUseCaseImpl.createUser(givenUserCreationDto);
 
     // Then
     verify(userRepository).createUser(any(User.class));

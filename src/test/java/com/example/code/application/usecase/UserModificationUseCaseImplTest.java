@@ -1,6 +1,7 @@
 package com.example.code.application.usecase;
 
 import static com.example.code.utils.UserGenerator.createUser;
+import static com.example.code.utils.UserGenerator.createUserModificationDto;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -9,17 +10,19 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.code.application.dto.UserModificationDto;
 import com.example.code.application.usecase.impl.UserModificationUseCaseImpl;
 import com.example.code.domain.model.User;
 import com.example.code.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class UserModificationUseCaseImplTest {
 
   @InjectMocks private UserModificationUseCaseImpl userModificationUseCaseImpl;
@@ -28,17 +31,12 @@ class UserModificationUseCaseImplTest {
 
   @Captor private ArgumentCaptor<User> userCaptor;
 
-  @BeforeEach
-  void setup() {
-    MockitoAnnotations.openMocks(this);
-  }
-
   @Test
   void modifyUserTest() {
     // Given
     final int userId = 1;
     final User mockedUser = createUser();
-    final User modifiedUser = createUser();
+    final UserModificationDto modifiedUser = createUserModificationDto();
 
     // When
     when(userRepository.findUserById(anyInt())).thenReturn(mockedUser);

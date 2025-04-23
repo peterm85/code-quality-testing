@@ -2,13 +2,17 @@ package com.example.code.apirest.mapper;
 
 import com.example.code.apirest.dto.UserRequest;
 import com.example.code.apirest.dto.UserResponse;
-import com.example.code.domain.model.User;
+import com.example.code.application.dto.UserCreationDto;
+import com.example.code.application.dto.UserDto;
+import com.example.code.application.dto.UserModificationDto;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserMapper {
 
-  User toUser(UserRequest request);
+  UserCreationDto toUserCreationDto(UserRequest request);
 
-  UserResponse toResponse(User user);
+  UserModificationDto toUserModificationDto(UserRequest request);
+
+  UserResponse toResponse(UserDto userDto);
 }
